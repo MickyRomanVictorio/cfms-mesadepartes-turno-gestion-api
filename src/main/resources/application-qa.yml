@@ -1,0 +1,36 @@
+server:
+  servlet:
+    context-path: /cfe/mesadeturno/v1/
+spring:
+  application:
+    name: cfms-mesa-de-turno
+  datasource:
+    password: ${DB_PASSWORD}
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ${DB_USERNAME}
+    url: jdbc:oracle:thin:@172.16.57.226:1521/DESACFEDB
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+kafka:
+  producers:
+    - bootstrap-servers: 172.16.111.115:9092
+      topics:
+        - name: topic-cfms-mesadepartes-unicadespacho-denuncia-qa
+          retry-attempts: 3
+        - name: topic-cfms-mesadepartes-unicadespacho-documento-qa
+          retry-attempts: 3
+  topic-denuncia: topic-cfms-mesadepartes-unicadespacho-denuncia-qa
+
+jwt:
+  token:
+    key: a1b2c3z28
+
+clients:
+  mensajeValidacionUrl: http://cfms-generales-maestros-gestion-api.qa.svc.cluster.local:8080/cfe/generales/maestro/v1/cftp/e/tablamensaje/{codigo}
+  generalesFirmaDigitalUrl: http://cfms-generales-firmadigital-gestion-api.qa.svc.cluster.local:8080/cfe/generales/firmadigital/v1/t/firmadigital
+  gestionDocumentos: http://cfms-generales-documentos-gestion-api.qa.svc.cluster.local:8080/cfe/generales/documento/v2/cftm/t/gestion
+  gestionDocumentoMesaDePartes: http://cfms-mesadepartes-documentos-gestion-api.qa.svc.cluster.local:8080/cfe/mesadepartes/documentos/v1/t/pdf
+  generalesAlmacenamiento: http://cfms-generales-almacenamiento-objetos-api.qa.svc.cluster.local:8080/cfe/generales/objetos/v2/t/almacenamiento/publico
